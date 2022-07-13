@@ -124,9 +124,7 @@ Game.prototype.bindEvents = function () {
       that.updateBombsLeft()
     })
 
-    // support to HOLD to mark bomb, works in Android by default
-    if (iDevise) {
-      target.addEventListener('touchstart', function (evt) {
+    target.addEventListener('touchstart', function (evt) {
         that.holding = setTimeout(function () {
           target.dispatchEvent(new Event('contextmenu'))
         }, 500)
@@ -135,7 +133,6 @@ Game.prototype.bindEvents = function () {
       target.addEventListener('touchend', function (evt) {
         clearTimeout(that.holding)
       })
-    }
   })
 
   window.addEventListener('keydown', function (evt) {
