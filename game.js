@@ -124,13 +124,13 @@ Game.prototype.bindEvents = function () {
       that.updateBombsLeft()
     })
 
-    target.addEventListener('mousedown', function (evt) {
+    target.addEventListener('touchstart', function (evt) {
         that.holding = setTimeout(function () {
           target.dispatchEvent(new Event('contextmenu'))
         }, 500)
       })
 
-      target.addEventListener('mouseup', function (evt) {
+      target.addEventListener('touchend', function (evt) {
         clearTimeout(that.holding)
       })
   })
