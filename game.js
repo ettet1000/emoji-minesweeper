@@ -93,9 +93,14 @@ Game.prototype.bindEvents = function () {
       that.game()
     })
 
-    // double clicking on a cell and marking a cell as a potential bomb
+    // double clicking on a cell and opening the cell and all 8 of its neighbors
     target.addEventListener('dblclick', function () {
-      target.dispatchEvent(new Event('contextmenu'))
+      if (target.isFlagged) return
+      that.moveIt()
+
+      target.reveal()
+      that.revealNeighbors(target)
+      that.game()
     })
 
     // marking a cell as a potential bomb
@@ -119,7 +124,16 @@ Game.prototype.bindEvents = function () {
       that.updateBombsLeft()
     })
 
-    
+    // support to HOLD to mark bomb
+    target.addEventListener('mousedown', function (evt) {
+      that.holding = setTimeout(function () {
+        target.dispatchEvent(new Event('contextmenu'))
+      }, 500)
+    })
+
+    target.addEventListener('mouseup', function (evt) {
+      clearTimeout(that.holding)
+    })
   })
 
   window.addEventListener('keydown', function (evt) {
